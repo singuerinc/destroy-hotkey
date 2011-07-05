@@ -20,12 +20,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-package com.destroytoday.hotkey
-{
+package com.destroytoday.hotkey {
+
+	import flash.system.Capabilities;
 	import com.destroytoday.object.ObjectMap;
-	
 	import flash.display.Stage;
-	import flash.events.EventDispatcher;
 	import flash.events.KeyboardEvent;
 
 	public class HotkeyManager
@@ -61,7 +60,7 @@ package com.destroytoday.hotkey
 			if (hasStage(stage))
 				throw new ArgumentError("Stage has already been added");
 			
-			stageMap.mapValue(stage, true)
+			stageMap.mapValue(stage, true);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
 			return stage;
@@ -72,7 +71,7 @@ package com.destroytoday.hotkey
 			if (!hasStage(stage))
 				throw new ArgumentError("Attempting to remove Stage that hasn't been previously added");
 			
-			stageMap.unmapValue(stage)
+			stageMap.unmapValue(stage);
 			stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyDownHandler);
 			
 			return stage;
@@ -150,16 +149,19 @@ package com.destroytoday.hotkey
 			var charCodeModifierStr:String = '';
 			var keyCodeModifierStr:String = '';
 			
-			if (event.commandKey)
+			if(Capabilities.playerType == 'Desktop')
 			{
-				charCodeModifierStr += "command+";
-				keyCodeModifierStr += "command+";
-			}
-			
-			if (event.controlKey)
-			{
-				charCodeModifierStr += "control+";
-				keyCodeModifierStr += "control+";
+				if (event["commandKey"])
+				{
+					charCodeModifierStr += "command+";
+					keyCodeModifierStr += "command+";
+				}
+				
+				if (event["controlKey"])
+				{
+					charCodeModifierStr += "control+";
+					keyCodeModifierStr += "control+";
+				}
 			}
 			
 			if (event.altKey)

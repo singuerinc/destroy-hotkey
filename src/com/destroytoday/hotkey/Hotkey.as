@@ -44,7 +44,7 @@ package com.destroytoday.hotkey
 		
 		public function get executed():Signal
 		{
-			return _executed ||= new Signal();
+			return _executed ||= new Signal(String);
 		}
 		
 		public function set executed(value:Signal):void
@@ -147,7 +147,7 @@ package com.destroytoday.hotkey
 		
 		public function execute():void
 		{
-			executed.dispatch();
+			executed.dispatch(combination);
 		}
 		
 		public function toString():String
